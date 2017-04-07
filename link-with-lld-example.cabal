@@ -1,0 +1,22 @@
+-- Configure with:
+--
+--    cabal configure --with-gcc=clang --with-ld=clang
+
+name: link-with-lld-example
+version: 1
+build-type: Simple
+cabal-version: >= 1.2
+
+library
+  hs-source-dirs: src
+  exposed-modules: Lib
+  build-depends: base
+  ghc-options: "-pgmP clang" "-pgmc clang" "-pgma clang" "-pgml clang" "-optl-fuse-ld=lld"
+  ld-options: -fuse-ld=lld
+
+executable link-with-lld-example
+  hs-source-dirs: app
+  main-is: Main.hs
+  build-depends: base
+  ghc-options: "-pgmP clang" "-pgmc clang" "-pgma clang" "-pgml clang"
+  ld-options: -fuse-ld=lld
